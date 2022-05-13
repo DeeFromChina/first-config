@@ -1,0 +1,40 @@
+spring:
+  profiles:
+    active: dev
+    
+---
+server:
+  port: 8001
+
+#mybatis配置
+mybatis:
+  type-aliases-package: com.dee.cloud.pojo
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+#spring的配置
+spring:
+  profiles: dev
+  application:
+    name: springcloud-provider-user
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: org.gjt.mm.mysql.Driver
+    url: jdbc:mysql://localhost:3306/kingcloud?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 945319791
+    druid:
+      test-while-idle: false
+
+#Eureka配置
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/eureka/,http://localhost:7002/eureka/,http://localhost:7003/eureka/  #注册中心集群地址
+  instance:
+    instance-id: springcloud-provider-user-8001   #注册中心显示的实例名称
+
+info:
+  app.name: provider-user-8001
+  company.name: dee
+
